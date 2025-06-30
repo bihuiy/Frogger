@@ -1,1 +1,59 @@
+* {
+  box-sizing: border-box;
+}
 
+#grid {
+  width: 600px;
+  height: 600px;
+  background-color: beige;
+}
+
+#grid div {
+  border: solid lightslategray;
+  display: inline-block;
+}
+
+#grid div.frog {
+  background-image: url("/assets/frogdown1.png");
+  background-size: contain;
+}
+
+#grid div.leftcar1 {
+  background-image: url("/assets/leftcar1.png");
+  background-size: contain;
+}
+
+#grid div.leftcar2 {
+  background-image: url("/assets/leftcar2.png");
+  background-size: contain;
+}
+
+#grid div.leftcar3 {
+  background-image: url("/assets/leftcar3.png");
+  background-size: contain;
+}
+
+#grid div.rightcar1 {
+  background-image: url("/assets/rightcar1.png");
+  background-size: contain;
+}
+
+#grid div.rightcar2 {
+  background-image: url("/assets/rightcar2.png");
+  background-size: contain;
+}
+
+#grid div.leftcrab {
+  background-image: url("/assets/leftcrab.png");
+  background-size: contain;
+}
+
+#grid div.leftfish {
+  background-image: url("/assets/leftfish.png");
+  background-size: contain;
+}
+
+#grid div.logs {
+  background-image: url("/assets/floatinglog.png");
+  background-size: contain;
+}
