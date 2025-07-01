@@ -53,7 +53,17 @@
   background-size: contain;
 }
 
-#grid div.logs {
-  background-image: url("/assets/floatinglog.png");
+#grid div.leftcrab {
+  background-image: url("/assets/leftcrab.png");
+  background-size: contain;
+}
+
+#grid div.leftfish {
+  background-image: url("/assets/leftfish.png");
+  background-size: contain;
+}
+
+#grid div.rightlog {
+  background-image: url("/assets/rightlog.png");
   background-size: contain;
 }

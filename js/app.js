@@ -63,31 +63,99 @@ const lives = 3;
 // lives - start from 3, decrease by 1 each time fails
 // message - You won! / You lose!
 
-// Variables for the left moving car 11
+// Variables for the left-moving car 11
 const startingPosLeftCar11 = 131;
 let currentPosLeftCar11 = startingPosLeftCar11;
-// Variables for the left moving car 12
+// Variables for the left-moving car 12
 const startingPosLeftCar12 = 128;
 let currentPosLeftCar12 = startingPosLeftCar12;
-// Variables for the left moving car 13
+// Variables for the left-moving car 13
 const startingPosLeftCar13 = 124;
 let currentPosLeftCar13 = startingPosLeftCar13;
 
-// Variables for the left moving car 2
-const startingPosLeftCar2 = 109;
-let currentPosLeftCar2 = startingPosLeftCar2;
+// Variables for the left-moving car 21
+const startingPosLeftCar21 = 109;
+let currentPosLeftCar21 = startingPosLeftCar21;
+// Variables for the left-moving car 22
+const startingPosLeftCar22 = 104;
+let currentPosLeftCar22 = startingPosLeftCar22;
+// Variables for the left-moving car 23
+const startingPosLeftCar23 = 100;
+let currentPosLeftCar23 = startingPosLeftCar23;
 
-// Variables for the left moving car 3
-const startingPosLeftCar3 = 87;
-let currentPosLeftCar3 = startingPosLeftCar3;
+// Variables for the left-moving car 31
+const startingPosLeftCar31 = 87;
+let currentPosLeftCar31 = startingPosLeftCar31;
+// Variables for the left-moving car 32
+const startingPosLeftCar32 = 85;
+let currentPosLeftCar32 = startingPosLeftCar32;
+// Variables for the left-moving car 33
+const startingPosLeftCar33 = 81;
+let currentPosLeftCar33 = startingPosLeftCar33;
 
-// Variables for the right moving car 1
-const startingPosRightCar1 = 110;
-let currentPosRightCar1 = startingPosRightCar1;
+// Variables for the right-moving car 11
+const startingPosRightCar11 = 110;
+let currentPosRightCar11 = startingPosRightCar11;
+// Variables for the right-moving car 12
+const startingPosRightCar12 = 115;
+let currentPosRightCar12 = startingPosRightCar12;
+// Variables for the right-moving car 13
+const startingPosRightCar13 = 119;
+let currentPosRightCar13 = startingPosRightCar13;
 
-// Variables for the right moving car 2
-const startingPosRightCar2 = 88;
-let currentPosRightCar2 = startingPosRightCar2;
+// Variables for the right-moving car 21
+const startingPosRightCar21 = 88;
+let currentPosRightCar21 = startingPosRightCar21;
+// Variables for the right-moving car 22
+const startingPosRightCar22 = 95;
+let currentPosRightCar22 = startingPosRightCar22;
+// Variables for the right-moving car 23
+const startingPosRightCar23 = 97;
+let currentPosRightCar23 = startingPosRightCar23;
+
+// Variables for the left-swimming fish 11
+const startingPosLeftFish11 = [65];
+let currentPosLeftFish11 = startingPosLeftFish11.slice();
+// Variables for the left-swimming fish 12
+const startingPosLeftFish12 = [57, 58, 59];
+let currentPosLeftFish12 = startingPosLeftFish12.slice();
+
+// Variables for the left-swimming fish 21
+const startingPosLeftFish21 = [32];
+let currentPosLeftFish21 = startingPosLeftFish21.slice();
+// Variables for the left-swimming fish 22
+const startingPosLeftFish22 = [28, 29];
+let currentPosLeftFish22 = startingPosLeftFish22.slice();
+// Variables for the left-swimming fish 23
+const startingPosLeftFish23 = [24, 25];
+let currentPosLeftFish23 = startingPosLeftFish23.slice();
+
+// Variables for the right-floating log 11
+const startingPosRightLog11 = 44;
+let currentPosRightLog11 = startingPosRightLog11;
+// Variables for the right-floating log 12
+const startingPosRightLog12 = 48;
+let currentPosRightLog12 = startingPosRightLog12;
+// Variables for the right-floating log 13
+const startingPosRightLog13 = 51;
+let currentPosRightLog13 = startingPosRightLog13;
+
+// Variables for the right-floating log 21
+const startingPosRightLog21 = [33];
+let currentPosRightLog21 = startingPosRightLog21.slice();
+// Variables for the right-floating log 22
+const startingPosRightLog22 = [38, 39, 40];
+let currentPosRightLog22 = startingPosRightLog22.slice();
+
+// Variables for the right-floating log 31
+const startingPosRightLog31 = [11];
+let currentPosRightLog31 = startingPosRightLog31.slice();
+// Variables for the right-floating log 32
+const startingPosRightLog32 = [15, 16];
+let currentPosRightLog32 = startingPosRightLog32.slice();
+// Variables for the right-floating log 33
+const startingPosRightLog33 = [19, 20];
+let currentPosRightLog33 = startingPosRightLog33.slice();
 
 /*------------------------ Cached Element References ------------------------*/
 // start button
@@ -96,12 +164,12 @@ const grid = document.getElementById("grid");
 
 /*-------------------------------- Functions --------------------------------*/
 function init() {}
-//gameStart();
+gameStart();
 function gameStart() {
   createGrid();
   resetFrog();
-  movingCars();
-  movingLogs();
+  //movingCars();
+  //movingLogs();
   //timerInterval = setInterval(resetFrog, 120000);
 }
 
@@ -131,152 +199,318 @@ function resetFrog() {
 }
 
 function movingCars() {
-  movingLeftCar11();
-  movingLeftCar12();
-  movingLeftCar13();
-  //movingLeftCar2();
-  //movingLeftCar3();
-  //movingRightCar1();
-  //movingRightCar2();
+  movingLeftCar1(currentPosLeftCar11);
+  movingLeftCar1(currentPosLeftCar12);
+  movingLeftCar1(currentPosLeftCar13);
+  movingLeftCar2(currentPosLeftCar21);
+  movingLeftCar2(currentPosLeftCar22);
+  movingLeftCar2(currentPosLeftCar23);
+  movingLeftCar3(currentPosLeftCar31);
+  movingLeftCar3(currentPosLeftCar32);
+  movingLeftCar3(currentPosLeftCar33);
+  movingRightCar1(currentPosRightCar11);
+  movingRightCar1(currentPosRightCar12);
+  movingRightCar1(currentPosRightCar13);
+  movingRightCar2(currentPosRightCar21);
+  movingRightCar2(currentPosRightCar22);
+  movingRightCar2(currentPosRightCar23);
 }
-
-// Codes for the first left moving car
-function movingLeftCar11() {
-  leftcar11Reset();
+// The first left-moving car
+function movingLeftCar1(currentPos) {
+  resetLeftCar1(startingPosLeftCar11);
 
   setInterval(() => {
-    cellElement[currentPosLeftCar11].classList.remove("leftcar1");
-    if (currentPosLeftCar11 > 121) {
-      currentPosLeftCar11--;
-      cellElement[currentPosLeftCar11].classList.add("leftcar1");
+    cellElement[currentPos].classList.remove("leftcar1");
+    if (currentPos > 121) {
+      currentPos--;
+      cellElement[currentPos].classList.add("leftcar1");
     } else {
-      leftcar11Reset();
-      currentPosLeftCar11 = startingPosLeftCar11;
+      resetLeftCar1(startingPosLeftCar11);
+      currentPos = startingPosLeftCar11;
     }
   }, 600);
 }
-function leftcar11Reset() {
-  const cell = cellElement[startingPosLeftCar11];
+function resetLeftCar1(startingPos) {
+  const cell = cellElement[startingPos];
   cell.classList.add("leftcar1");
 }
-function movingLeftCar12() {
-  leftcar12Reset();
+// The second left-moving car
+function movingLeftCar2(currentPos) {
+  resetLeftCar2(startingPosLeftCar21);
 
   setInterval(() => {
-    cellElement[currentPosLeftCar12].classList.remove("leftcar1");
-    if (currentPosLeftCar12 > 121) {
-      currentPosLeftCar12--;
-      cellElement[currentPosLeftCar12].classList.add("leftcar1");
+    cellElement[currentPos].classList.remove("leftcar2");
+    if (currentPos > 99) {
+      currentPos--;
+      cellElement[currentPos].classList.add("leftcar2");
     } else {
-      leftcar11Reset();
-      currentPosLeftCar12 = startingPosLeftCar11;
+      resetLeftCar2(startingPosLeftCar21);
+      currentPos = startingPosLeftCar21;
     }
   }, 600);
 }
-function leftcar12Reset() {
-  const cell = cellElement[startingPosLeftCar12];
-  cell.classList.add("leftcar1");
-}
-function movingLeftCar13() {
-  leftcar13Reset();
-
-  setInterval(() => {
-    cellElement[currentPosLeftCar13].classList.remove("leftcar1");
-    if (currentPosLeftCar13 > 121) {
-      currentPosLeftCar13--;
-      cellElement[currentPosLeftCar13].classList.add("leftcar1");
-    } else {
-      leftcar11Reset();
-      currentPosLeftCar13 = startingPosLeftCar11;
-    }
-  }, 600);
-}
-function leftcar13Reset() {
-  const cell = cellElement[startingPosLeftCar13];
-  cell.classList.add("leftcar1");
-}
-
-// Codes for the second left moving car
-function movingLeftCar2() {
-  leftcar2Reset();
-
-  setInterval(() => {
-    cellElement[currentPosLeftCar2].classList.remove("leftcar2");
-    if (currentPosLeftCar2 > 99) {
-      currentPosLeftCar2--;
-      cellElement[currentPosLeftCar2].classList.add("leftcar2");
-    } else {
-      leftcar2Reset();
-      currentPosLeftCar2 = startingPosLeftCar2;
-    }
-  }, 600);
-}
-function leftcar2Reset() {
-  const cell = cellElement[startingPosLeftCar2];
+function resetLeftCar2(startingPos) {
+  const cell = cellElement[startingPos];
   cell.classList.add("leftcar2");
 }
-
-// Codes for the third left moving car
-function movingLeftCar3() {
-  leftcar3Reset();
+// The third left-moving car
+function movingLeftCar3(currentPos) {
+  resetLeftCar3(startingPosLeftCar31);
 
   setInterval(() => {
-    cellElement[currentPosLeftCar3].classList.remove("leftcar3");
-    if (currentPosLeftCar3 > 77) {
-      currentPosLeftCar3--;
-      cellElement[currentPosLeftCar3].classList.add("leftcar3");
+    cellElement[currentPos].classList.remove("leftcar3");
+    if (currentPos > 77) {
+      currentPos--;
+      cellElement[currentPos].classList.add("leftcar3");
     } else {
-      leftcar3Reset();
-      currentPosLeftCar3 = startingPosLeftCar3;
+      resetLeftCar3(startingPosLeftCar31);
+      currentPos = startingPosLeftCar31;
     }
   }, 600);
 }
-function leftcar3Reset() {
-  const cell = cellElement[startingPosLeftCar3];
+function resetLeftCar3(startingPos) {
+  const cell = cellElement[startingPos];
   cell.classList.add("leftcar3");
 }
-
-// Codes for the first right moving car
-function movingRightCar1() {
-  rightcar1Reset();
+// The first right-moving car
+function movingRightCar1(currentPos) {
+  resetRightCar1(startingPosRightCar11);
 
   setInterval(() => {
-    cellElement[currentPosRightCar1].classList.remove("rightcar1");
-    if (currentPosRightCar1 < 120) {
-      currentPosRightCar1++;
-      cellElement[currentPosRightCar1].classList.add("rightcar1");
+    cellElement[currentPos].classList.remove("rightcar1");
+    if (currentPos < 120) {
+      currentPos++;
+      cellElement[currentPos].classList.add("rightcar1");
     } else {
-      rightcar1Reset();
-      currentPosRightCar1 = startingPosRightCar1;
+      resetRightCar1(startingPosRightCar11);
+      currentPos = startingPosRightCar11;
     }
   }, 600);
 }
-function rightcar1Reset() {
-  const cell = cellElement[startingPosRightCar1];
+function resetRightCar1(startingPos) {
+  const cell = cellElement[startingPos];
   cell.classList.add("rightcar1");
 }
-
-// Codes for the second right moving car
-function movingRightCar2() {
-  rightcar2Reset();
+// The second right-moving car
+function movingRightCar2(currentPos) {
+  resetRightCar2(startingPosRightCar21);
 
   setInterval(() => {
-    cellElement[currentPosRightCar2].classList.remove("rightcar2");
-    if (currentPosRightCar2 < 98) {
-      currentPosRightCar2++;
-      cellElement[currentPosRightCar2].classList.add("rightcar2");
+    cellElement[currentPos].classList.remove("rightcar2");
+    if (currentPos < 98) {
+      currentPos++;
+      cellElement[currentPos].classList.add("rightcar2");
     } else {
-      leftcar3Reset();
-      currentPosRightCar2 = startingPosRightCar2;
+      resetRightCar2(startingPosRightCar21);
+      currentPos = startingPosRightCar21;
     }
   }, 600);
 }
-function rightcar2Reset() {
-  const cell = cellElement[startingPosRightCar2];
+function resetRightCar2(startingPos) {
+  const cell = cellElement[startingPos];
   cell.classList.add("rightcar2");
 }
 
-function movingLogs() {}
+function movingLogs() {
+  swimmingLeftFish1(startingPosLeftFish11, currentPosLeftFish11);
+  swimmingLeftFish1(startingPosLeftFish12, currentPosLeftFish12);
+  swimmingLeftFish2(startingPosLeftFish21, currentPosLeftFish21);
+  swimmingLeftFish2(startingPosLeftFish22, currentPosLeftFish22);
+  swimmingLeftFish2(startingPosLeftFish23, currentPosLeftFish23);
+  floatingRightLog1(currentPosRightLog11);
+  floatingRightLog1(currentPosRightLog12);
+  floatingRightLog1(currentPosRightLog13);
+  floatingRightLog2(startingPosRightLog21, currentPosRightLog21);
+  floatingRightLog2(startingPosRightLog22, currentPosRightLog22);
+  floatingRightLog3(startingPosRightLog31, currentPosRightLog31);
+  floatingRightLog3(startingPosRightLog32, currentPosRightLog32);
+  floatingRightLog3(startingPosRightLog33, currentPosRightLog33);
+}
+// The first left-swimming fish
+function swimmingLeftFish1(startingPos, currentPos) {
+  resetLeftFish1(startingPos);
+  let lengthOfFish;
+
+  setInterval(() => {
+    lengthOfFish = currentPos.length;
+    let firstEle = currentPos[0];
+    let lastEle = currentPos[lengthOfFish - 1];
+
+    // The three fish appear one by one from the right starting point
+    if (firstEle > 55 && lengthOfFish < 3) {
+      currentPos.unshift(firstEle - 1);
+      cellElement[currentPos[0]].classList.add("leftcrab");
+    }
+    // The three fish swimmming from right to left together
+    else if (firstEle > 55) {
+      firstEle--;
+      cellElement[firstEle].classList.add("leftcrab");
+      cellElement[lastEle].classList.remove("leftcrab");
+      currentPos.pop(lastEle);
+      currentPos.unshift(firstEle);
+    }
+    //  The three fish disappear one by one from the left ending point
+    else if (lastEle >= 55) {
+      cellElement[lastEle].classList.remove("leftcrab");
+      currentPos.pop(lastEle);
+      lastEle--;
+    } // The three fish start from the right starting point
+    else {
+      // Reset the fish to the LeftFish11's starting position
+      resetLeftFish1(startingPosLeftFish11);
+      currentPos = startingPosLeftFish11.slice();
+    }
+  }, 600);
+}
+// Reset the current position to the starting position
+function resetLeftFish1(startingPos) {
+  for (i = 0; i < startingPos.length; i++) {
+    const element = startingPos[i];
+    cellElement[element].classList.add("leftcrab");
+  }
+}
+// The second left-swimming fish
+function swimmingLeftFish2(startingPos, currentPos) {
+  resetLeftFish2(startingPos);
+  let lengthOfFish;
+
+  setInterval(() => {
+    lengthOfFish = currentPos.length;
+    let firstEle = currentPos[0];
+    let lastEle = currentPos[lengthOfFish - 1];
+
+    // Codes for the three fish appear one by one from the right starting point
+    if (firstEle > 22 && lengthOfFish < 2) {
+      currentPos.unshift(firstEle - 1);
+      cellElement[currentPos[0]].classList.add("leftfish");
+    }
+    // Codes for the three fish swimmming from right to left together
+    else if (firstEle > 22) {
+      firstEle--;
+      cellElement[firstEle].classList.add("leftfish");
+      cellElement[lastEle].classList.remove("leftfish");
+      currentPos.pop(lastEle);
+      currentPos.unshift(firstEle);
+    }
+    //  Codes for the three fish disappear one by one from the left ending point
+    else if (lastEle >= 22) {
+      cellElement[lastEle].classList.remove("leftfish");
+      currentPos.pop(lastEle);
+      lastEle--;
+    } else {
+      resetLeftFish2(startingPosLeftFish21);
+      currentPos = startingPosLeftFish21.slice();
+    }
+  }, 600);
+}
+// Reset the current position to the starting position
+function resetLeftFish2(startingPos) {
+  for (i = 0; i < startingPos.length; i++) {
+    const element = startingPos[i];
+    cellElement[element].classList.add("leftfish");
+  }
+}
+// The first right-floating log
+function floatingRightLog1(currentPos) {
+  resetRightLog1(startingPosRightLog11);
+
+  setInterval(() => {
+    cellElement[currentPos].classList.remove("rightlog");
+    if (currentPos < 54) {
+      currentPos++;
+      cellElement[currentPos].classList.add("rightlog");
+    } else {
+      resetRightLog1(startingPosRightLog11);
+      currentPos = startingPosRightLog11;
+    }
+  }, 600);
+}
+function resetRightLog1(startingPos) {
+  const cell = cellElement[startingPos];
+  cell.classList.add("rightlog");
+}
+// The second right-floating log
+function floatingRightLog2(startingPos, currentPos) {
+  resetRightLog2(startingPos);
+  let lengthOfLog;
+
+  setInterval(() => {
+    lengthOfLog = currentPos.length;
+    let firstEle = currentPos[0];
+    let lastEle = currentPos[lengthOfLog - 1];
+
+    // Codes for the three fish appear one by one from the right starting point
+    if (firstEle < 43 && lengthOfLog < 3) {
+      currentPos.unshift(firstEle + 1);
+      cellElement[currentPos[0]].classList.add("rightlog");
+    }
+    // Codes for the three fish swimmming from right to left together
+    else if (firstEle < 43) {
+      firstEle++;
+      cellElement[firstEle].classList.add("rightlog");
+      cellElement[lastEle].classList.remove("rightlog");
+      currentPos.pop(lastEle);
+      currentPos.unshift(firstEle);
+    }
+    //  Codes for the three fish disappear one by one from the left ending point
+    else if (lastEle <= 43) {
+      cellElement[lastEle].classList.remove("rightlog");
+      currentPos.pop(lastEle);
+      lastEle++;
+    } else {
+      resetRightLog2(startingPosRightLog21);
+      currentPos = startingPosRightLog21.slice();
+    }
+  }, 600);
+}
+// Reset the current position to the starting position
+function resetRightLog2(startingPos) {
+  for (i = 0; i < startingPos.length; i++) {
+    const element = startingPos[i];
+    cellElement[element].classList.add("rightlog");
+  }
+}
+// The third right-floating log
+function floatingRightLog3(startingPos, currentPos) {
+  resetRightLog3(startingPos);
+  let lengthOfLog;
+
+  setInterval(() => {
+    lengthOfLog = currentPos.length;
+    let firstEle = currentPos[0];
+    let lastEle = currentPos[lengthOfLog - 1];
+
+    // Codes for the three fish appear one by one from the right starting point
+    if (firstEle < 21 && lengthOfLog < 2) {
+      currentPos.unshift(firstEle + 1);
+      cellElement[currentPos[0]].classList.add("rightlog");
+    }
+    // Codes for the three fish swimmming from right to left together
+    else if (firstEle < 21) {
+      firstEle++;
+      cellElement[firstEle].classList.add("rightlog");
+      cellElement[lastEle].classList.remove("rightlog");
+      currentPos.pop(lastEle);
+      currentPos.unshift(firstEle);
+    }
+    //  Codes for the three fish disappear one by one from the left ending point
+    else if (lastEle <= 21) {
+      cellElement[lastEle].classList.remove("rightlog");
+      currentPos.pop(lastEle);
+      lastEle++;
+    } else {
+      resetRightLog3(startingPosRightLog31);
+      currentPos = startingPosRightLog31.slice();
+    }
+  }, 600);
+}
+// Reset the current position to the starting position
+function resetRightLog3(startingPos) {
+  for (i = 0; i < startingPos.length; i++) {
+    const element = startingPos[i];
+    cellElement[element].classList.add("rightlog");
+  }
+}
 
 function moveFrog(event) {
   removeFrog();
