@@ -12,21 +12,21 @@
 // 2. Lives - Start from 3, decrease by 1 each time fails
 // 3. Timer - A 2-min timer starts when a frog is reset at the starting point. Timer stops when the frog successfully crosses the river, fails from a collision, or fails to reach the correct spot within 2 minutes.
 // 4. Cars - Moving cars appear on the road in the bottom half of the screen when the game starts. Five rows move either left or right. The frog must avoid these cars — if it gets hit, it loses one life.
-// 5. Logs - Moving logs appear in the river in the top half of the screen when the game starts. Five rows move either left or right. The frog must jump onto the logs to cross safely — if it falls into the river, it fails and loses one life.
-// 6. Five frog homes - at the very top of the screen
+// 5. Logs & fish - Floating logs and swimming fish appear in the river in the top half of the screen when the game starts. Five rows move either left or right. The frog must jump onto the logs or fish to cross safely — if it falls into the river, it fails and loses one life.
+// 6. Five frog homes - at the very top of the screen.
 
 // * User Interactions (user initiated events like clicks, hovers, key presses etc)
 // 1. Player initiated the game by clicking start button
-// 2. then player presses the arrow keys to move the frog to cross the road and river.
+// 2. then player presses the arrow keys to move the frog to cross the road and river to reach to the five frog homes.
 
 // * Core Logic / Rules (List the core rules that will dictate the win lose condition)
 // 1. Frog must cross the road and river to reach one of the five homes.
-// 2. If frog reaches the correct spot(an empty home), score increases by 100.
+// 2. If frog reaches an empty home, score increases by 100.
 // 3. If frog is hit by a car on the road, lose one life.
-// 4. If frog jumps into water without landing on a log in the river, lose one life.
+// 4. If frog jumps into water without landing on a log or fish in the river, lose one life.
 // 5. If frog reach to a home that is already occupied, lose one life.
 // 6. If frog fails to reach a home within 2 minutes, lose one life.
-// 7. Game ends when lives equal to 0 or all 5 frogs reach to 5 homes.
+// 7. Game ends when lives equal to 0 or all 5 frogs reach to 5 homes / score equals to 500.
 
 // * Conditions / Branching (which conditions will lead to which things happening)
 // 1. If score = 500, player wins
@@ -43,25 +43,39 @@
 
 /*-------------------------------- Variables --------------------------------*/
 // Variables for the grid
-// columns = 11
 const columns = 11;
-// rows = 13
 const rows = 13;
 const cellCount = columns * rows;
 const cellElement = [];
 
 // Variables for the frog
-// starting position - frog's starting position
-const startingPos = 137;
-// current position - frog's current position
-let currentPos = startingPos;
-// alive = true - frog is alive
-// timerInterval - 2mins
-const score = 0;
-// score - start from 0, increase by 100 each time a frog successfully crosses the river and lands on the correct spot.
-const lives = 3;
-// lives - start from 3, decrease by 1 each time fails
+const startingPosFrog = 137;
+let currentPosFrog = startingPosFrog;
+let score = 0; // score - start from 0, increase by 100 each time a frog successfully crosses the river and lands on the correct spot.
+let lives = 3; // lives - start from 3, decrease by 1 each time fails.
+
 // message - You won! / You lose!
+// timerInterval - 2mins
+
+// Variables for the homes
+const homesIdx = [
+  { idx: 1, empty: true },
+  { idx: 3, empty: true },
+  { idx: 5, empty: true },
+  { idx: 7, empty: true },
+  { idx: 9, empty: true },
+];
+
+// Variables for the crossRoad
+const carClasses = [
+  "leftcar1",
+  "leftcar2",
+  "leftcar3",
+  "rightcar1",
+  "rightcar2",
+];
+// Variables for the crossRiver
+const logClasses = ["leftcrab", "leftfish", "rightlog"];
 
 // Variables for the left-moving car 11
 const startingPosLeftCar11 = 131;
@@ -115,20 +129,20 @@ let currentPosRightCar23 = startingPosRightCar23;
 
 // Variables for the left-swimming fish 11
 const startingPosLeftFish11 = [65];
-let currentPosLeftFish11 = startingPosLeftFish11.slice();
+let currentPosLeftFish11 = [...startingPosLeftFish11];
 // Variables for the left-swimming fish 12
 const startingPosLeftFish12 = [57, 58, 59];
-let currentPosLeftFish12 = startingPosLeftFish12.slice();
+let currentPosLeftFish12 = [...startingPosLeftFish12];
 
 // Variables for the left-swimming fish 21
 const startingPosLeftFish21 = [32];
-let currentPosLeftFish21 = startingPosLeftFish21.slice();
+let currentPosLeftFish21 = [...startingPosLeftFish21];
 // Variables for the left-swimming fish 22
 const startingPosLeftFish22 = [28, 29];
-let currentPosLeftFish22 = startingPosLeftFish22.slice();
+let currentPosLeftFish22 = [...startingPosLeftFish22];
 // Variables for the left-swimming fish 23
 const startingPosLeftFish23 = [24, 25];
-let currentPosLeftFish23 = startingPosLeftFish23.slice();
+let currentPosLeftFish23 = [...startingPosLeftFish23];
 
 // Variables for the right-floating log 11
 const startingPosRightLog11 = 44;
@@ -142,20 +156,20 @@ let currentPosRightLog13 = startingPosRightLog13;
 
 // Variables for the right-floating log 21
 const startingPosRightLog21 = [33];
-let currentPosRightLog21 = startingPosRightLog21.slice();
+let currentPosRightLog21 = [...startingPosRightLog21];
 // Variables for the right-floating log 22
 const startingPosRightLog22 = [38, 39, 40];
-let currentPosRightLog22 = startingPosRightLog22.slice();
+let currentPosRightLog22 = [...startingPosRightLog22];
 
 // Variables for the right-floating log 31
 const startingPosRightLog31 = [11];
-let currentPosRightLog31 = startingPosRightLog31.slice();
+let currentPosRightLog31 = [...startingPosRightLog31];
 // Variables for the right-floating log 32
 const startingPosRightLog32 = [15, 16];
-let currentPosRightLog32 = startingPosRightLog32.slice();
+let currentPosRightLog32 = [...startingPosRightLog32];
 // Variables for the right-floating log 33
 const startingPosRightLog33 = [19, 20];
-let currentPosRightLog33 = startingPosRightLog33.slice();
+let currentPosRightLog33 = [...startingPosRightLog33];
 
 /*------------------------ Cached Element References ------------------------*/
 // start button
@@ -169,7 +183,7 @@ function gameStart() {
   createGrid();
   resetFrog();
   //movingCars();
-  //movingLogs();
+  movingLogs();
   //timerInterval = setInterval(resetFrog, 120000);
 }
 
@@ -195,7 +209,8 @@ function createGrid() {
 
 function resetFrog() {
   // add the class frog to the starting position
-  cellElement[startingPos].classList.add("frog");
+  cellElement[startingPosFrog].classList.add("frog");
+  currentPosFrog = startingPosFrog;
 }
 
 function movingCars() {
@@ -223,6 +238,10 @@ function movingLeftCar1(currentPos) {
     cellElement[currentPos].classList.remove("leftcar1");
     if (currentPos > 121) {
       currentPos--;
+      if (currentPos === currentPosFrog) {
+        removeFrog();
+        resetFrog();
+      }
       cellElement[currentPos].classList.add("leftcar1");
     } else {
       resetLeftCar1(startingPosLeftCar11);
@@ -242,6 +261,10 @@ function movingLeftCar2(currentPos) {
     cellElement[currentPos].classList.remove("leftcar2");
     if (currentPos > 99) {
       currentPos--;
+      if (currentPos === currentPosFrog) {
+        removeFrog();
+        resetFrog();
+      }
       cellElement[currentPos].classList.add("leftcar2");
     } else {
       resetLeftCar2(startingPosLeftCar21);
@@ -261,6 +284,10 @@ function movingLeftCar3(currentPos) {
     cellElement[currentPos].classList.remove("leftcar3");
     if (currentPos > 77) {
       currentPos--;
+      if (currentPos === currentPosFrog) {
+        removeFrog();
+        resetFrog();
+      }
       cellElement[currentPos].classList.add("leftcar3");
     } else {
       resetLeftCar3(startingPosLeftCar31);
@@ -280,6 +307,10 @@ function movingRightCar1(currentPos) {
     cellElement[currentPos].classList.remove("rightcar1");
     if (currentPos < 120) {
       currentPos++;
+      if (currentPos === currentPosFrog) {
+        removeFrog();
+        resetFrog();
+      }
       cellElement[currentPos].classList.add("rightcar1");
     } else {
       resetRightCar1(startingPosRightCar11);
@@ -299,12 +330,16 @@ function movingRightCar2(currentPos) {
     cellElement[currentPos].classList.remove("rightcar2");
     if (currentPos < 98) {
       currentPos++;
+      if (currentPos === currentPosFrog) {
+        removeFrog();
+        resetFrog();
+      }
       cellElement[currentPos].classList.add("rightcar2");
     } else {
       resetRightCar2(startingPosRightCar21);
       currentPos = startingPosRightCar21;
     }
-  }, 600);
+  }, 300);
 }
 function resetRightCar2(startingPos) {
   const cell = cellElement[startingPos];
@@ -313,7 +348,7 @@ function resetRightCar2(startingPos) {
 
 function movingLogs() {
   swimmingLeftFish1(startingPosLeftFish11, currentPosLeftFish11);
-  swimmingLeftFish1(startingPosLeftFish12, currentPosLeftFish12);
+  //swimmingLeftFish1(startingPosLeftFish12, currentPosLeftFish12);
   swimmingLeftFish2(startingPosLeftFish21, currentPosLeftFish21);
   swimmingLeftFish2(startingPosLeftFish22, currentPosLeftFish22);
   swimmingLeftFish2(startingPosLeftFish23, currentPosLeftFish23);
@@ -326,6 +361,17 @@ function movingLogs() {
   floatingRightLog3(startingPosRightLog32, currentPosRightLog32);
   floatingRightLog3(startingPosRightLog33, currentPosRightLog33);
 }
+
+function checkFishCollision(currentPos) {
+  if (isFrogInRiver() && !currentPos.includes(currentPosFrog)) {
+    console.log(currentPos);
+    console.log(currentPosFrog);
+    removeFrog();
+    checkLives();
+  }
+}
+
+
 // The first left-swimming fish
 function swimmingLeftFish1(startingPos, currentPos) {
   resetLeftFish1(startingPos);
@@ -336,30 +382,33 @@ function swimmingLeftFish1(startingPos, currentPos) {
     let firstEle = currentPos[0];
     let lastEle = currentPos[lengthOfFish - 1];
 
-    // The three fish appear one by one from the right starting point
+    // The movement of three fish appear one by one from the right starting point
     if (firstEle > 55 && lengthOfFish < 3) {
       currentPos.unshift(firstEle - 1);
       cellElement[currentPos[0]].classList.add("leftcrab");
     }
-    // The three fish swimmming from right to left together
+    // The movement of three fish swimmming from right to left together
     else if (firstEle > 55) {
       firstEle--;
       cellElement[firstEle].classList.add("leftcrab");
       cellElement[lastEle].classList.remove("leftcrab");
-      currentPos.pop(lastEle);
+      currentPos.pop();
       currentPos.unshift(firstEle);
     }
-    //  The three fish disappear one by one from the left ending point
+    //  The movement of three fish disappear one by one from the left ending point
     else if (lastEle >= 55) {
       cellElement[lastEle].classList.remove("leftcrab");
-      currentPos.pop(lastEle);
+      currentPos.pop();
       lastEle--;
-    } // The three fish start from the right starting point
+    } // The movement of three fish start from the right starting point
     else {
       // Reset the fish to the LeftFish11's starting position
       resetLeftFish1(startingPosLeftFish11);
-      currentPos = startingPosLeftFish11.slice();
+      currentPos = [...startingPosLeftFish11];
     }
+
+    checkFishCollision(currentPos);
+
   }, 600);
 }
 // Reset the current position to the starting position
@@ -389,17 +438,17 @@ function swimmingLeftFish2(startingPos, currentPos) {
       firstEle--;
       cellElement[firstEle].classList.add("leftfish");
       cellElement[lastEle].classList.remove("leftfish");
-      currentPos.pop(lastEle);
+      currentPos.pop();
       currentPos.unshift(firstEle);
     }
     //  Codes for the three fish disappear one by one from the left ending point
     else if (lastEle >= 22) {
       cellElement[lastEle].classList.remove("leftfish");
-      currentPos.pop(lastEle);
+      currentPos.pop();
       lastEle--;
     } else {
       resetLeftFish2(startingPosLeftFish21);
-      currentPos = startingPosLeftFish21.slice();
+      currentPos = [...startingPosLeftFish21];
     }
   }, 600);
 }
@@ -449,17 +498,17 @@ function floatingRightLog2(startingPos, currentPos) {
       firstEle++;
       cellElement[firstEle].classList.add("rightlog");
       cellElement[lastEle].classList.remove("rightlog");
-      currentPos.pop(lastEle);
+      currentPos.pop();
       currentPos.unshift(firstEle);
     }
     //  Codes for the three fish disappear one by one from the left ending point
     else if (lastEle <= 43) {
       cellElement[lastEle].classList.remove("rightlog");
-      currentPos.pop(lastEle);
+      currentPos.pop();
       lastEle++;
     } else {
       resetRightLog2(startingPosRightLog21);
-      currentPos = startingPosRightLog21.slice();
+      currentPos = [...startingPosRightLog21];
     }
   }, 600);
 }
@@ -490,17 +539,17 @@ function floatingRightLog3(startingPos, currentPos) {
       firstEle++;
       cellElement[firstEle].classList.add("rightlog");
       cellElement[lastEle].classList.remove("rightlog");
-      currentPos.pop(lastEle);
+      currentPos.pop();
       currentPos.unshift(firstEle);
     }
     //  Codes for the three fish disappear one by one from the left ending point
     else if (lastEle <= 21) {
       cellElement[lastEle].classList.remove("rightlog");
-      currentPos.pop(lastEle);
+      currentPos.pop();
       lastEle++;
     } else {
       resetRightLog3(startingPosRightLog31);
-      currentPos = startingPosRightLog31.slice();
+      currentPos = [...startingPosRightLog31];
     }
   }, 600);
 }
@@ -513,47 +562,122 @@ function resetRightLog3(startingPos) {
 }
 
 function moveFrog(event) {
+  // Remove the frog from the old position
   removeFrog();
-  // calculate frog's current position based on the keys pressed
+  // Calculate frog's current/new position based on the keys pressed
   const keyPressed = event.code;
-  if (keyPressed === "ArrowUp" && currentPos - columns >= 0) {
-    currentPos -= columns;
-  } else if (keyPressed === "ArrowRight" && (currentPos + 1) % columns !== 0) {
-    currentPos++; // ?? what if I changed the number of columns and rows, will these conditions change?
-  } else if (keyPressed === "ArrowLeft" && currentPos % columns !== 0) {
-    currentPos--;
-  } else if (keyPressed === "ArrowDown" && currentPos + columns < cellCount) {
-    currentPos += columns;
+  if (keyPressed === "ArrowUp" && currentPosFrog - columns >= 0) {
+    currentPosFrog -= columns;
+  } else if (
+    keyPressed === "ArrowRight" &&
+    (currentPosFrog + 1) % columns !== 0
+  ) {
+    currentPosFrog++;
+  } else if (keyPressed === "ArrowLeft" && currentPosFrog % columns !== 0) {
+    currentPosFrog--;
+  } else if (
+    keyPressed === "ArrowDown" &&
+    currentPosFrog + columns < cellCount
+  ) {
+    currentPosFrog += columns;
   }
+  // Add the frog on the new position
   addFrog();
-  crossRoad();
-  crossRiver();
-  checkHome();
-  // if score = 500, player won!
+
+  // Check for a collision on the frog's move
+  if (isFrogOnRoad) {
+    // Check for a collision on the road
+    crossRoad();
+  } else if (isFrogInRiver()) {
+    // Check for a safe land in the river
+    crossRiver();
+  } else if (isFrogInTopRow()) {
+    // Check for an arrival at the five frog homes
+    checkHome();
+    checkScore();
+  }
 }
 function addFrog() {
-  const cell = cellElement[currentPos];
+  const cell = cellElement[currentPosFrog];
   cell.classList.add("frog");
 }
 function removeFrog() {
-  const cell = cellElement[currentPos];
+  const cell = cellElement[currentPosFrog];
   cell.classList.remove("frog");
 }
+// Check if frog is on the bottom half of the game grid
+function isFrogOnRoad() {
+  const roadStart = columns + columns * Math.floor(rows / 2);
+  const roadEnd = cellCount - columns;
+  return currentPosFrog >= roadStart && currentPosFrog < roadEnd;
+}
+// Check if frog is on the top half of the game grid
+function isFrogInRiver() {
+  const riverStart = columns; // except from the top homes area
+  const riverEnd = columns * Math.floor(rows / 2); // till the top half of the game grid
+  return currentPosFrog >= riverStart && currentPosFrog < riverEnd;
+}
+// Check if frog is on the top row
+function isFrogInTopRow() {
+  return currentPosFrog >= 0 && currentPosFrog < columns;
+}
 function crossRoad() {
-  // If the frog's current cell has a car, alive = false, lives--, call function checkLives()
-  // Else, alive = true
+  const cell = cellElement[currentPosFrog];
+  // Check if the frog's current position contains any car class
+  const hit = carClasses.some((carClass) => {
+    return cell.classList.contains(carClass);
+  });
+  if (hit) {
+    removeFrog();
+    checkLives();
+  }
 }
 function crossRiver() {
-  // If the frog's current cell has a log, alive = true
-  // Else, alive = false, lives--, call function checkLives()
+  const cell = cellElement[currentPosFrog];
+  // Check if the frog's current position contains any log class
+  const land = logClasses.some((logclass) => {
+    return cell.classList.contains(logclass);
+  });
+  if (!land) {
+    removeFrog();
+    checkLives();
+  }
 }
 function checkHome() {
-  // If the frog reach to an empty home, alive = true, score +=100, clear timerInterval
-  // If frog reaches a home that is already occupied, alive = false, lives--, call function checkLives()
+  // check if frog's current position in the homes array
+  const arrivedHome = homesIdx.find((home) => {
+    return home.idx === currentPosFrog;
+  });
+  // if frog doesn't land on the homes area
+  if (!arrivedHome) {
+    removeFrog();
+    checkLives();
+  } // if frog land on a home and this home is empty
+  else if (arrivedHome.empty) {
+    score += 100;
+    arrivedHome.empty = false;
+    resetFrog();
+  } // if frog land on a home and this home isn't empty
+  else {
+    checkLives();
+  }
 }
 function checkLives() {
-  // if (lives == 0) call init(), game over
-  // else frogReset()
+  lives--;
+  if (lives === 0) {
+    //clearInterval()//??
+    init(); // game over
+    //message=you lose//???
+  } else {
+    resetFrog();
+  }
+}
+function checkScore() {
+  if (score === 500) {
+    //clearInterval()//??
+    init();
+    // message = you won//???
+  }
 }
 
 /*----------------------------- Event Listeners -----------------------------*/
