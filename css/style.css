@@ -1,21 +1,65 @@
+.start-screen {
+  text-align: center;
+  padding: 20px;
+}
+
+h1 {
+  color: #188212;
+  font-size: 7rem;
+  font-family: "Courier New", Courier, monospace;
+}
+
+#start-button {
+  padding: 5px 10px;
+  font-size: 2rem;
+  border-radius: 20px;
+  margin: 70px;
+}
+
+#game-display {
+  font-family: "Courier New", Courier, monospace;
+  display: flex;
+  justify-content: space-around;
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin: 40px;
+  color: #333;
+}
+
 * {
   box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+  background-color: #2530c056;
 }
 
 #grid {
   width: 600px;
   height: 600px;
-  background-color: beige;
+  /* margin: auto; */
 }
 
 #grid div {
-  border: solid lightslategray;
-  display: inline-block;
+  /* border: solid lightslategray; */
+  position: relative;
 }
 
-#grid div.frog {
-  background-image: url("/assets/frogdown1.png");
+/* #grid div.frog {
+  background-image: url("/assets/frog.png");
   background-size: contain;
+} */
+
+.frog {
+  background-image: url("/assets/frog.png");
+  background-size: contain;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 10;
 }
 
 #grid div.leftcar1 {
@@ -41,6 +85,7 @@
 #grid div.rightcar2 {
   background-image: url("/assets/rightcar2.png");
   background-size: contain;
+  background-repeat: no-repeat;
 }
 
 #grid div.leftcrab {
@@ -51,19 +96,30 @@
 #grid div.leftfish {
   background-image: url("/assets/leftfish.png");
   background-size: contain;
-}
-
-#grid div.leftcrab {
-  background-image: url("/assets/leftcrab.png");
-  background-size: contain;
-}
-
-#grid div.leftfish {
-  background-image: url("/assets/leftfish.png");
-  background-size: contain;
+  background-repeat: no-repeat;
 }
 
 #grid div.rightlog {
   background-image: url("/assets/rightlog.png");
   background-size: contain;
+  background-repeat: no-repeat;
+}
+
+/* The bottom row, the middle row and top row */
+.saferow {
+  background-color: #4b0082;
+}
+
+/* The bottom half of the grid */
+.road {
+  background-color: #3d3c3e;
+}
+
+/* The top half of the grid */
+.river {
+  background-color: #91b1e8;
+}
+
+.home {
+  background-color: #188212;
 }
