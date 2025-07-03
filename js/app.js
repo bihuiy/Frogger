@@ -533,21 +533,20 @@ function updateDisplay() {
   document.getElementById("lives-display").textContent = `Lives: ${lives}`;
 }
 function playHitSound() {
-  hitSound.scr = "sounds/hit.wav";
-  console.log("i work");
-  
+  hitSound.src = "sounds/hit.wav";
+  //console.log("i work");
   hitSound.play();
 }
 function playHomeSound() {
-  homeSound.scr = "sounds/home.wav";
+  homeSound.src = "sounds/home.wav";
   homeSound.play();
 }
 function playLoseSound() {
-  loseSound.scr = "sounds/lose.wav";
+  loseSound.src = "sounds/lose.wav";
   loseSound.play();
 }
 function playWinSound() {
-  win.scr = "sounds/win.wav";
+  win.src = "sounds/win.wav";
   win.play();
 }
 
