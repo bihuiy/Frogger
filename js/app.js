@@ -51,21 +51,15 @@ const cellElement = [];
 // Variables for the frog
 const startingPosFrog = 137;
 let currentPosFrog = startingPosFrog;
+
+const MAXSCORES = 500;
 let score = 0; // score - start from 0, increase by 100 each time a frog successfully crosses the river and lands on the correct spot
-let lives = 3; // lives - start from 3, decrease by 1 each time fails
-let homeidx = [1, 3, 5, 7, 9];
+const MAXLIVES = 3;
+let lives = MAXLIVES; // lives - start from 3, decrease by 1 each time fails
+let homeIdx = [1, 3, 5, 7, 9]; // index for the home destinations
 
-// To save all the setInterval, so that I can clear all the old setInterval when initial the game
+// To save all the setInterval, to clear all the old setInterval when initial the game
 const intervalIds = [];
-
-// Variables for the homes
-const homesIdx = [
-  { idx: 1, empty: true },
-  { idx: 3, empty: true },
-  { idx: 5, empty: true },
-  { idx: 7, empty: true },
-  { idx: 9, empty: true },
-];
 
 // Variables for the sound
 const homeSound = document.getElementById("home");
@@ -73,7 +67,7 @@ const hitSound = document.getElementById("hit");
 const winSound = document.getElementById("win");
 const loseSound = document.getElementById("lose");
 
-// Variables for the crossRoad
+// Variables for the crossRoad function
 const carClasses = [
   "leftcar1",
   "leftcar2",
@@ -81,7 +75,7 @@ const carClasses = [
   "rightcar1",
   "rightcar2",
 ];
-// Variables for the crossRiver
+// Variables for the crossRiver function
 const logClasses = ["leftcrab", "leftfish", "rightlog"];
 
 // Variables for the moving cars
@@ -194,6 +188,8 @@ const logs = [
     numberOfLogs: 2,
   },
 ];
+
+// To save all the logs position to see if any of the log has a frog on it
 const allLogPositions = [];
 
 /*------------------------ Cached Element References ------------------------*/
@@ -206,8 +202,8 @@ const grid = document.getElementById("grid");
 
 /*-------------------------------- Functions --------------------------------*/
 function init() {
-  intervalIds.forEach((id) => clearInterval(id)); // clear all the old setIntervals
-  intervalIds.length = 0; // clear the interval array for the next use
+  intervalIds.forEach((id) => clearInterval(id)); // clear/stop all the old setIntervals
+  intervalIds.length = 0; // clear the interval array
   startScreen.style.display = "block";
   startBtn.style.display = "block";
   grid.style.display = "none";
@@ -218,12 +214,16 @@ function gameStart() {
   startBtn.style.display = "none";
   createGrid();
   score = 0;
-  lives = 3;
+  lives = MAXLIVES;
   updateDisplay();
   resetHomes();
   resetFrog();
-  cars.forEach(movingCar);
-  logs.forEach(floatingLog);
+  cars.forEach((car) => {
+    movingCar(car);
+  });
+  logs.forEach((log) => {
+    floatingLog(log);
+  });
 }
 
 function createGrid() {
@@ -250,21 +250,19 @@ function createGrid() {
 }
 
 function resetHomes() {
-  homeidx = [1, 3, 5, 7, 9];
-  homeidx.forEach((home) => {
-    const frog = cellElement[home].querySelector(".frog");
-    if (frog) frog.remove();
+  homeIdx = [1, 3, 5, 7, 9];
+  homeIdx.forEach((home) => {
+    const frog = cellElement[home].classList.contains("frog");
+    if (frog) cellElement[home].classList.remove("frog");
   });
 }
 
 function resetFrog() {
-  // add the class frog to the starting position
   currentPosFrog = startingPosFrog;
   addFrog();
 }
 
 function movingCar({ carClassname, direction, startPos, endPos }) {
-  // after car disappear, will reappear/restart from the another side
   let restartPos;
   if (direction === "left") {
     restartPos = endPos + columns - 1;
@@ -362,7 +360,6 @@ function floatingLog({
       currentPos.pop();
     } // The movement of three fish start from the right starting point
     else {
-      // Reset the fish to the LeftFish11's starting position
       resetLog(restartPos, logClassname);
       //currentPos = [...restartPos];
       currentPos.length = 0;
@@ -374,7 +371,6 @@ function floatingLog({
   intervalIds.push(intervalId);
 }
 function resetLog(startPos, logClassname) {
-  // Reset the current position to the start position
   for (i = 0; i < startPos.length; i++) {
     const element = startPos[i];
     cellElement[element].classList.add(logClassname);
@@ -386,7 +382,6 @@ function checkFrogOnLog() {
   const frogOnAnyLog = allLogPositions.some((logPos) =>
     logPos.includes(currentPosFrog)
   );
-  //if (isFrogInRiver() && !currentPosLog.includes(currentPosFrog)) {
   if (frogInRiver && !frogOnAnyLog) {
     removeFrog();
     checkLives();
@@ -414,7 +409,7 @@ function moveFrog(event) {
   ) {
     currentPosFrog += columns;
   }
-  // Add the frog on the new position
+  // After position changes, add the frog on the new position
   addFrog();
 
   // Check for a collision on the frog's move
@@ -431,25 +426,14 @@ function moveFrog(event) {
     checkScore();
   }
 }
-// function addFrog() {
-//   const cell = cellElement[currentPosFrog];
-//   cell.classList.add("frog");
-// }
 
 function addFrog() {
-  const frogDiv = document.createElement("div");
-  frogDiv.classList.add("frog");
-  cellElement[currentPosFrog].appendChild(frogDiv);
+  const cell = cellElement[currentPosFrog];
+  cell.classList.add("frog");
 }
-
-// function removeFrog() {
-//   const cell = cellElement[currentPosFrog];
-//   cell.classList.remove("frog");
-// }
-
 function removeFrog() {
-  const frog = cellElement[currentPosFrog].querySelector(".frog");
-  if (frog) frog.remove();
+  const cell = cellElement[currentPosFrog];
+  cell.classList.remove("frog");
 }
 
 function isFrogOnRoad() {
@@ -468,6 +452,7 @@ function isFrogInTopRow() {
   // Check if frog is on the top row
   return currentPosFrog >= 0 && currentPosFrog < columns;
 }
+
 function crossRoad() {
   const cell = cellElement[currentPosFrog];
   // Check if the frog's current position contains any car class
@@ -492,7 +477,7 @@ function crossRiver() {
 }
 
 function checkHome() {
-  const idx = homeidx.indexOf(currentPosFrog);
+  const idx = homeIdx.indexOf(currentPosFrog);
 
   if (idx === -1) {
     // currentPosFrog isn't in the home area
@@ -502,19 +487,17 @@ function checkHome() {
     // currentPosFrog is in an empty
     playHomeSound();
     score += 100;
-    homeidx.splice(idx, 1); // remove that home index from home array / this home is no longer available
+    homeIdx.splice(idx, 1); // remove that home index from home array / this home is no longer available
     updateDisplay();
     resetFrog();
   }
 }
-
 function checkLives() {
   lives--;
   updateDisplay();
   if (lives === 0) {
     init(); // game over
     playLoseSound();
-    // message: you lose///???
   } else {
     playHitSound();
     resetFrog();
@@ -524,7 +507,6 @@ function checkScore() {
   if (score === 500) {
     init();
     playWinSound();
-    // message = you won//???
   }
 }
 function updateDisplay() {
@@ -532,6 +514,7 @@ function updateDisplay() {
   document.getElementById("score-display").textContent = `Score: ${score}`;
   document.getElementById("lives-display").textContent = `Lives: ${lives}`;
 }
+
 function playHitSound() {
   hitSound.src = "sounds/hit.wav";
   //console.log("i work");
