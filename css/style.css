@@ -45,44 +45,44 @@ body {
 }
 
 #grid div.leftcar1 {
-  background-image: url("./assets/leftcar1.png");
+  background-image: url("assets/leftcar1.png");
   background-size: contain;
 }
 
 #grid div.leftcar2 {
-  background-image: url("/assets/leftcar2.png");
+  background-image: url("assets/leftcar2.png");
   background-size: contain;
 }
 
 #grid div.leftcar3 {
-  background-image: url("/assets/leftcar3.png");
+  background-image: url("assets/leftcar3.png");
   background-size: contain;
 }
 
 #grid div.rightcar1 {
-  background-image: url("/assets/rightcar1.png");
+  background-image: url("assets/rightcar1.png");
   background-size: contain;
 }
 
 #grid div.rightcar2 {
-  background-image: url("/assets/rightcar2.png");
+  background-image: url("assets/rightcar2.png");
   background-size: contain;
   background-repeat: no-repeat;
 }
 
 #grid div.leftcrab {
-  background-image: url("/assets/leftcrab.png");
+  background-image: url("assets/leftcrab.png");
   background-size: contain;
 }
 
 #grid div.leftfish {
-  background-image: url("/assets/leftfish.png");
+  background-image: url("assets/leftfish.png");
   background-size: contain;
   background-repeat: no-repeat;
 }
 
 #grid div.rightlog {
-  background-image: url("/assets/rightlog.png");
+  background-image: url("assets/rightlog.png");
   background-size: contain;
   background-repeat: no-repeat;
 }
@@ -104,6 +104,6 @@ body {
 }
 
 #grid div.frog {
-  background-image: url("/assets/frog.png");
+  background-image: url("assets/frog.png");
   background-size: contain;
 }
