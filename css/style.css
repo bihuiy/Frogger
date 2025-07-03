@@ -2,6 +2,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  text-align: center;
 }
 
 h1 {
@@ -10,11 +11,18 @@ h1 {
   font-family: "Courier New", Courier, monospace;
 }
 
+p {
+  color: #188212;
+  font-size: 1.5rem;
+  font-weight: bold;
+  font-family: "Courier New", Courier, monospace;
+}
+
 #start-button {
   padding: 5px 10px;
   font-size: 2rem;
   border-radius: 20px;
-  margin: 70px;
+  margin: 40px;
 }
 
 #game-display {
