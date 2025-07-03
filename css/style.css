@@ -45,7 +45,7 @@ body {
 }
 
 #grid div.leftcar1 {
-  background-image: url("/assets/leftcar1.png");
+  background-image: url("./assets/leftcar1.png");
   background-size: contain;
 }
 
