@@ -53,6 +53,7 @@ const startingPosFrog = 137;
 let currentPosFrog = startingPosFrog;
 let score = 0; // score - start from 0, increase by 100 each time a frog successfully crosses the river and lands on the correct spot
 let lives = 3; // lives - start from 3, decrease by 1 each time fails
+let homeidx = [1, 3, 5, 7, 9];
 
 // To save all the setInterval, so that I can clear all the old setInterval when initial the game
 const intervalIds = [];
@@ -65,6 +66,12 @@ const homesIdx = [
   { idx: 7, empty: true },
   { idx: 9, empty: true },
 ];
+
+// Variables for the sound
+const homeSound = document.getElementById("home");
+const hitSound = document.getElementById("hit");
+const winSound = document.getElementById("win");
+const loseSound = document.getElementById("lose");
 
 // Variables for the crossRoad
 const carClasses = [
@@ -202,14 +209,18 @@ function init() {
   intervalIds.forEach((id) => clearInterval(id)); // clear all the old setIntervals
   intervalIds.length = 0; // clear the interval array for the next use
   startScreen.style.display = "block";
+  startBtn.style.display = "block";
   grid.style.display = "none";
-  updateDisplay();
 }
 
 function gameStart() {
   startScreen.style.display = "none";
+  startBtn.style.display = "none";
   createGrid();
-  // resetHomes();
+  score = 0;
+  lives = 3;
+  updateDisplay();
+  resetHomes();
   resetFrog();
   cars.forEach(movingCar);
   logs.forEach(floatingLog);
@@ -238,14 +249,13 @@ function createGrid() {
   grid.style.gridTemplateRows = `repeat(${rows}, 1fr)`;
 }
 
-// function resetHomes() {
-//   homesIdx.forEach((home) => {
-//     home.empty = true;
-//     const cell = cellElement[home.idx];
-//     const frog = cell.querySelector(".frog");
-//     if (frog) frog.remove();
-//   });
-// }
+function resetHomes() {
+  homeidx = [1, 3, 5, 7, 9];
+  homeidx.forEach((home) => {
+    const frog = cellElement[home].querySelector(".frog");
+    if (frog) frog.remove();
+  });
+}
 
 function resetFrog() {
   // add the class frog to the starting position
@@ -278,7 +288,7 @@ function movingCar({ carClassname, direction, startPos, endPos }) {
       }
       if (currentPos === currentPosFrog) {
         removeFrog();
-        resetFrog();
+        checkLives();
       }
       cellElement[currentPos].classList.add(carClassname);
     } else {
@@ -416,7 +426,6 @@ function moveFrog(event) {
     crossRiver();
   } else if (isFrogInTopRow()) {
     // Check for an arrival at the five frog homes
-    console.log("i am working");
 
     checkHome();
     checkScore();
@@ -481,49 +490,65 @@ function crossRiver() {
     checkLives();
   }
 }
+
 function checkHome() {
-  // check if frog's current position in the homes array
-  const arrivedHome = homesIdx.find((home) => {
-    return home.idx === currentPosFrog;
-  });
-  // if frog doesn't land on the homes area
-  if (!arrivedHome) {
+  const idx = homeidx.indexOf(currentPosFrog);
+
+  if (idx === -1) {
+    // currentPosFrog isn't in the home area
     removeFrog();
     checkLives();
-  } // if frog land on a home and this home is empty
-  else if (arrivedHome.empty) {
+  } else {
+    // currentPosFrog is in an empty
+    playHomeSound();
     score += 100;
-    arrivedHome.empty = false;
+    homeidx.splice(idx, 1); // remove that home index from home array / this home is no longer available
     updateDisplay();
     resetFrog();
-  } // if frog land on a home and this home isn't empty
-  else {
-    checkLives();
   }
 }
+
 function checkLives() {
   lives--;
-  //updateDisplay();
+  updateDisplay();
   if (lives === 0) {
     init(); // game over
+    playLoseSound();
+    // message: you lose///???
   } else {
+    playHitSound();
     resetFrog();
   }
 }
 function checkScore() {
   if (score === 500) {
     init();
+    playWinSound();
     // message = you won//???
   }
 }
 function updateDisplay() {
-  // Start screen
-  document.getElementById("Score").textContent = score;
-  document.getElementById("Lives").textContent = lives;
-
-  // Game screen
+  // Update score and lives
   document.getElementById("score-display").textContent = `Score: ${score}`;
   document.getElementById("lives-display").textContent = `Lives: ${lives}`;
+}
+function playHitSound() {
+  hitSound.scr = "sounds/hit.wav";
+  console.log("i work");
+  
+  hitSound.play();
+}
+function playHomeSound() {
+  homeSound.scr = "sounds/home.wav";
+  homeSound.play();
+}
+function playLoseSound() {
+  loseSound.scr = "sounds/lose.wav";
+  loseSound.play();
+}
+function playWinSound() {
+  win.scr = "sounds/win.wav";
+  win.play();
 }
 
 /*----------------------------- Event Listeners -----------------------------*/

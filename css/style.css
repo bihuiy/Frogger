@@ -1,6 +1,7 @@
 .start-screen {
-  text-align: center;
-  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 h1 {
@@ -19,7 +20,8 @@ h1 {
 #game-display {
   font-family: "Courier New", Courier, monospace;
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
+  gap: 40px;
   font-size: 2.5rem;
   font-weight: bold;
   margin: 40px;
