@@ -199,6 +199,8 @@ const startScreen = document.querySelector(".start-screen");
 const startBtn = document.getElementById("start-button");
 // 13 * 11 grid
 const grid = document.getElementById("grid");
+// won message
+const message = document.getElementById("message");
 
 /*-------------------------------- Functions --------------------------------*/
 function init() {
@@ -215,6 +217,7 @@ function gameStart() {
   createGrid();
   score = 0;
   lives = MAXLIVES;
+  message.textContent = "";
   updateDisplay();
   resetHomes();
   resetFrog();
@@ -497,6 +500,7 @@ function checkLives() {
   updateDisplay();
   if (lives === 0) {
     init(); // game over
+    message.textContent = "One more try?";
     playLoseSound();
   } else {
     playHitSound();
@@ -504,8 +508,9 @@ function checkLives() {
   }
 }
 function checkScore() {
-  if (score === 500) {
+  if (score === MAXSCORES) {
     init();
+    message.textContent = "You Won!";
     playWinSound();
   }
 }
@@ -514,7 +519,6 @@ function updateDisplay() {
   document.getElementById("score-display").textContent = `Score: ${score}`;
   document.getElementById("lives-display").textContent = `Lives: ${lives}`;
 }
-
 function playHitSound() {
   hitSound.src = "sounds/hit.wav";
   //console.log("i work");

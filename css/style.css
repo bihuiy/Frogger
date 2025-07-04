@@ -18,6 +18,13 @@ p {
   font-family: "Courier New", Courier, monospace;
 }
 
+#message {
+  color: #188212;
+  font-size: 5rem;
+  font-weight: bold;
+  font-family: "Courier New", Courier, monospace;
+}
+
 #start-button {
   padding: 5px 10px;
   font-size: 2rem;
