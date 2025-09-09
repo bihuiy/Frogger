@@ -431,12 +431,13 @@ function moveFrog(event) {
 }
 
 function addFrog() {
-  const cell = cellElement[currentPosFrog];
-  cell.classList.add("frog");
+  const frogDiv = document.createElement("div");
+  frogDiv.classList.add("frog");
+  cellElement[currentPosFrog].appendChild(frogDiv);
 }
 function removeFrog() {
-  const cell = cellElement[currentPosFrog];
-  cell.classList.remove("frog");
+  const frog = cellElement[currentPosFrog].querySelector(".frog");
+  if (frog) frog.remove();
 }
 
 function isFrogOnRoad() {
