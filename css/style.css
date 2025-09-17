@@ -126,3 +126,46 @@ body {
   background-size: cover;
   background-position: center;
 }
+
+@media (min-width: 319px) and (max-width: 480px) {
+  h1 {
+    font-size: 4rem;
+  }
+  p {
+    font-size: 1rem;
+  }
+  #message {
+    font-size: 2rem;
+  }
+  #start-button {
+    font-size: 1.5rem;
+  }
+  #game-display {
+    font-size: 2rem;
+  }
+  #grid {
+    width: 400px;
+    height: 400px;
+  }
+}
+@media (min-width: 481px) and (max-width: 1200px) {
+  h1 {
+    font-size: 5rem;
+  }
+  p {
+    font-size: 1.5rem;
+  }
+  #message {
+    font-size: 2.5rem;
+  }
+  #start-button {
+    font-size: 2rem;
+  }
+  #game-display {
+    font-size: 2.5rem;
+  }
+  #grid {
+    width: 550px;
+    height: 550px;
+  }
+}
